@@ -11,7 +11,6 @@ class Node {//用于relaxMap中
 public:
 	int key;
 	int costTillNow = INT_MAX;//到该节点为止的cost，松弛的时候会用到
-	bool isPassed = false;//是否被扫面过
 	vector<int> prev;//前向节点。因为是多条最短路径，所以前向节点可以有多个
 
 	Node(int k):key(k) {};

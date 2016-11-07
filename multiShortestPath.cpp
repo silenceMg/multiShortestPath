@@ -86,8 +86,7 @@ void multiShortestPath::dijkstra(int src, int des)
 		map<int,Node*> S;//已经扫描过的节点集合
 
 		pop_heap(que.begin(), que.end(), cmp());//与que.pop_back()搭配使用
-		que.back()->isPassed = true;//isPassed置为true表明该节点进入了集合S，然后让该节点出队
-		S.insert(pair<int,Node*>(que.back()->key,que.back()));//出队节点进入集合S,便于以后检索,本来isPassed就指明了节点进入S了，但是不使用S的话，每次都要遍历relaxMap
+		S.insert(pair<int,Node*>(que.back()->key,que.back()));//出队节点进入集合S,便于以后检索
 		que.pop_back();//最小元素出队
 		
 
