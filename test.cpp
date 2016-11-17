@@ -1,10 +1,10 @@
-#include"PBM.h"
+#include"multiShortestPath.h"
 
 int main()
 {
 	multiShortestPath m;
 	m.makeMap("case0.txt");
-	m.dijkstra(1,6);//ÊäÈë²ÎÊı²»ÄÜÊÇÍ¼ÍâµÄµã£¬·ñÔò»á±¨´í
+	m.dijkstra(1,6);//è¾“å…¥å‚æ•°ä¸èƒ½æ˜¯å›¾å¤–çš„ç‚¹ï¼Œå¦åˆ™ä¼šæŠ¥é”™
 	m.display();
 	cin.get();
 	return 0;
