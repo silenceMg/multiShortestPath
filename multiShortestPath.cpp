@@ -1,4 +1,4 @@
-#include"PBM.h"
+#include"multiShortestPath.h"
 
 
 void multiShortestPath::dfs(int nodeKey)
@@ -47,7 +47,7 @@ void multiShortestPath::makeMap(string path)
 			adjMap[tmp_src] = vector<pair<int, int>>{ pair<int, int>(tmp_des, tmp_cost) };
 		}
 
-		//³õÊ¼»¯relaxMap
+		//åˆå§‹åŒ–relaxMap
 		if (relaxMap.find(tmp_src) == relaxMap.end())
 		{
 			relaxMap[tmp_src] = new Node(tmp_src);
@@ -78,28 +78,28 @@ void multiShortestPath::dijkstra(int src, int des)
 		que.push_back(it.second);
 	}
 	
-	make_heap(que.begin(), que.end(), cmp());//½¨¶Ñ
+	make_heap(que.begin(), que.end(), cmp());//å»ºå †
 	
-    //dijkstraºËĞÄËã·¨
+    //dijkstraæ ¸å¿ƒç®—æ³•
 	//bool breakFlag = false;
 	while (!que.empty() ) {// ||!breakFlag
-		map<int,Node*> S;//ÒÑ¾­É¨Ãè¹ıµÄ½Úµã¼¯ºÏ
+		map<int,Node*> S;//å·²ç»æ‰«æè¿‡çš„èŠ‚ç‚¹é›†åˆ
 
-		pop_heap(que.begin(), que.end(), cmp());//Óëque.pop_back()´îÅäÊ¹ÓÃ
-		S.insert(pair<int,Node*>(que.back()->key,que.back()));//³ö¶Ó½Úµã½øÈë¼¯ºÏS,±ãÓÚÒÔºó¼ìË÷
-		que.pop_back();//×îĞ¡ÔªËØ³ö¶Ó
+		pop_heap(que.begin(), que.end(), cmp());//ä¸que.pop_back()æ­é…ä½¿ç”¨
+		S.insert(pair<int,Node*>(que.back()->key,que.back()));//å‡ºé˜ŸèŠ‚ç‚¹è¿›å…¥é›†åˆS,ä¾¿äºä»¥åæ£€ç´¢
+		que.pop_back();//æœ€å°å…ƒç´ å‡ºé˜Ÿ
 		
 
-		//±éÀú³ö¶Ó½ÚµãµÄÁÚ½Ó½Úµã£¬¸üĞÂ½ÚµãcostTillNow
-		for (auto &it : S) {//Õâ²ãÑ­»·±éÀú³ö¶Ó½Úµã
-			for (auto &iter : adjMap[it.second->key])//Õâ²ãÑ­»·±éÀú³ö¶Ó½ÚµãµÄÁÚ½Ó½Úµã
+		//éå†å‡ºé˜ŸèŠ‚ç‚¹çš„é‚»æ¥èŠ‚ç‚¹ï¼Œæ›´æ–°èŠ‚ç‚¹costTillNow
+		for (auto &it : S) {//è¿™å±‚å¾ªç¯éå†å‡ºé˜ŸèŠ‚ç‚¹
+			for (auto &iter : adjMap[it.second->key])//è¿™å±‚å¾ªç¯éå†å‡ºé˜ŸèŠ‚ç‚¹çš„é‚»æ¥èŠ‚ç‚¹
 			{
-				//Á½¸öifÍê³ÉËÉ³Ú²Ù×÷
+				//ä¸¤ä¸ªifå®Œæˆæ¾å¼›æ“ä½œ
 				if ((it.second->costTillNow + iter.second) < relaxMap[iter.first]->costTillNow)
 				{
-					relaxMap[iter.first]->costTillNow = it.second->costTillNow + iter.second;//ËÉ³Ú½Úµã,ÏÂÒ»¸ö½ÚµãµÄcostTillNow = µ±Ç°½ÚµãµÄcostTillNow + ¶şÕßÖ®¼ä±ßµÄcost
+					relaxMap[iter.first]->costTillNow = it.second->costTillNow + iter.second;//æ¾å¼›èŠ‚ç‚¹,ä¸‹ä¸€ä¸ªèŠ‚ç‚¹çš„costTillNow = å½“å‰èŠ‚ç‚¹çš„costTillNow + äºŒè€…ä¹‹é—´è¾¹çš„cost
 					relaxMap[iter.first]->prev.clear();
-					relaxMap[iter.first]->prev.push_back(it.first);//Ö¸ÏòÇ°½Úµã,¼ÇÂ¼Â·¾¶£¬ÕâÀïÊÇÇó¶àÌõÂ·¾¶µÄ¹Ø¼üµã£¬ÓÃvectorÀ´´æ´¢¶à¸öÇ°Ïò½Úµã
+					relaxMap[iter.first]->prev.push_back(it.first);//æŒ‡å‘å‰èŠ‚ç‚¹,è®°å½•è·¯å¾„ï¼Œè¿™é‡Œæ˜¯æ±‚å¤šæ¡è·¯å¾„çš„å…³é”®ç‚¹ï¼Œç”¨vectoræ¥å­˜å‚¨å¤šä¸ªå‰å‘èŠ‚ç‚¹
 				}
 				else if ((it.second->costTillNow + iter.second )== relaxMap[iter.first]->costTillNow)
 				{
@@ -107,13 +107,13 @@ void multiShortestPath::dijkstra(int src, int des)
 				}
 			}
 		}
-		make_heap(que.begin(), que.end(), cmp());//ËÉ³ÚÖ®ºóÖØÖÃ¶Ñ
+		make_heap(que.begin(), que.end(), cmp());//æ¾å¼›ä¹‹åé‡ç½®å †
 	}//end of while
 }
 
 void multiShortestPath::display()
 {
-	cout << "ËùÓĞµÄ×î¶ÌÂ·¾¶£º" << endl;
+	cout << "æ‰€æœ‰çš„æœ€çŸ­è·¯å¾„ï¼š" << endl;
 	dfs(destination);
 }
 
